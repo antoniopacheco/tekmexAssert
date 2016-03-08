@@ -25,7 +25,6 @@
 		runTest()
 	}
 	this.assert = function(value, desc){
-		console.log(desc);
 		results = overRideRes ? overRideRes : document.getElementById("results");
 		var li = document.createElement("li");
 		li.className = value ? "pass" : "fail";
