@@ -28,16 +28,22 @@
 					assert(true, "Inside test block A in function");
 				})();
 				assert(true, "Inside test block A");
+				setTimeout(function(){
+					assert(false, "test delayed A 1s");
+				}, 1000);
 			});
 			assert(true, "Outside and after the test block A");
 			test("TestBlock B", function(){
 				setTimeout(function(){
-					assert(true, "test delayed B");
-					assert(true, "test delayed 2 B");
+					assert(true, "test delayed B .5s");
+					assert(true, "test delayed 2 B .5s");
 				}, 500);
 			});
 			assert(true, "Outside and after test block B");
-			assert(true, "Outside  2 and after test block B");
+			test("TestBlock C",function(){
+				assert(true, "test from C not timeouts");
+			});
+			assert(true, "Outside C");
 
 		};
 	</script>
