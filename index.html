@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#results li.pass{
+			color : green;
+		}
+		#results li.fail{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<ul id="results">
+	</ul>
+	<script type="text/javascript" src="assert.js"></script>
+	<script type="text/javascript">
+	
+		window.onload = function(){
+			// assert used inside and outside test blocks <
+			(function(){
+				assert(true, "Outside and before the test blocks in function");
+			})();
+			assert(true, "Outside and before the test blocks");
+			test("TestBlock A", function(){
+				(function(){
+					assert(true, "Inside test block A in function");
+				})();
+				assert(true, "Inside test block A");
+			});
+			assert(true, "Outside and after the test block A");
+			test("TestBlock B", function(){
+					pause();
+				setTimeout(function(){
+					console.log(results);
+					resume();
+					assert(true, "test delayed B");
+					assert(true, "test delayed 2 B");
+				}, 500);
+			});
+			assert(true, "Outside and after test block B");
+			assert(true, "Outside  2 and after test block B");
+
+		};
+	</script>
+</body>
+</html>
