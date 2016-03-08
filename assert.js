@@ -42,18 +42,18 @@
 
 				if(!paused && queue.length){
 					queue.shift()();
-					if(!paused){
-						resume();
-					}
+					// if(!paused){
+					// 	resume();
+					// }
 				}
 			}	
-			this.resume = function(){
-				paused = false;
-				setTimeout(runTest,1);
+			// this.resume = function(){
+			// 	paused = false;
+			// 	setTimeout(runTest,1);
 				
-			};
+			// };
 
-			this.pause = function(){
-				paused = true;
-			};
+			// this.pause = function(){
+			// 	paused = true;
+			// };
 		})();

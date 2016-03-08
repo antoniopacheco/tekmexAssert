@@ -14,7 +14,7 @@
 <body>
 	<ul id="results">
 	</ul>
-	<script type="text/javascript" src="assert.js"></script>
+	<script type="text/javascript" src="assertAsync.js"></script>
 	<script type="text/javascript">
 	
 		window.onload = function(){
@@ -31,10 +31,7 @@
 			});
 			assert(true, "Outside and after the test block A");
 			test("TestBlock B", function(){
-					pause();
 				setTimeout(function(){
-					console.log(results);
-					resume();
 					assert(true, "test delayed B");
 					assert(true, "test delayed 2 B");
 				}, 500);
