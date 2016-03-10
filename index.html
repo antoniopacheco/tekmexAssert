@@ -14,29 +14,25 @@
 <body>
 	<ul id="results">
 	</ul>
-	<script type="text/javascript" src="assertAsync.js"></script>
+	<script type="text/javascript" src="assert.js"></script>
 	<script type="text/javascript">
 	
 		window.onload = function(){
 			// assert used inside and outside test blocks <
-			(function(){
-				assert(true, "Outside and before the test blocks in function");
-			})();
+		
 			assert(true, "Outside and before the test blocks");
 			test("TestBlock A", function(){
-				(function(){
-					assert(true, "Inside test block A in function");
-				})();
-				assert(true, "Inside test block A");
+				assert(true, "Inside A no delay");
 				setTimeout(function(){
 					assert(false, "test delayed A 1s");
 				}, 1000);
 			});
 			assert(true, "Outside and after the test block A");
 			test("TestBlock B", function(){
+				//assert(true, "Inside B no delay");
+
 				setTimeout(function(){
 					assert(true, "test delayed B .5s");
-					assert(true, "test delayed 2 B .5s");
 				}, 500);
 			});
 			assert(true, "Outside and after test block B");

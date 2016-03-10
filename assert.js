@@ -1,59 +1,39 @@
-(function(){
-			var queue = [], paused = false;
+	var overRideRes, results= document.getElementById("results");
+	var allp = {};
 
-			this.test = function(name,fn){
-				queue.push(
-					function(){
-						results = document.getElementById("results");
-						results = assert(true, name).appendChild(
-							document.createElement("ul")
-						);
-						fn();
-					}
-				);
-				runTest();
-				if(!paused)
-					results = document.getElementById("results");
-			}
+	 this.test = function(name, fn){
+		parentNodeEl = assert(true, name).appendChild(
+			document.createElement("ul")
+		);
+		results = parentNodeEl
+	   	runTest(fn,parentNodeEl);
+	   	results= document.getElementById("results");
+	}
 
-			this.assert = function(value, desc){
-				if(!paused){
-					var li = document.createElement("li");
-					li.className = value ? "pass" : "fail";
-					li.appendChild(document.createTextNode(desc));
-					results.appendChild(li);
-				}else{
-					console.log("pausado");
-					console.log(results);
-					queue.push(
-						function(){
-							var li = document.createElement("li");
-							li.className = value ? "pass" : "fail";
-							li.appendChild(document.createTextNode(desc));
-							results = document.getElementById("results");
-							results.appendChild(li);
-						}
-					);
-				}
-				return li;
-			}
 
-			function runTest(){
+	function runTest(fn, pn){
+		var t = setTimeout;
+		setTimeout = function(funct, time){
+			results = pn;
+			t(function(){
+				results = pn;
+				funct();
 
-				if(!paused && queue.length){
-					queue.shift()();
-					// if(!paused){
-					// 	resume();
-					// }
-				}
-			}	
-			// this.resume = function(){
-			// 	paused = false;
-			// 	setTimeout(runTest,1);
-				
-			// };
+			},time);
+		};
+		fn();
+		setTimeout = t;
+	}
 
-			// this.pause = function(){
-			// 	paused = true;
-			// };
-		})();
+
+	 function assert(value, desc){
+		var li = document.createElement("li");
+		li.className = value ? "pass" : "fail";
+		li.appendChild(document.createTextNode(desc));
+		results.appendChild(li);
+		if(!value)
+			li.parentNode.parentNode.className = "fail";
+		//results = document.getElementById("results");
+		return li;
+
+	}
